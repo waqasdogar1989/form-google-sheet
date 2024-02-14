@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBAP Future Client Profile Portal</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles for the navbar and footer */
+        body {
+            background-color: #f8f9fa;
+            /* Bootstrap default background color */
+        }
+
+        .navbar {
+            background: linear-gradient(to bottom, #f9c667 0%, #f79621 100%);
+            color: black;
+            text-align: center;
+        }
+
+        .navbar a {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+        }
+
+        .footer {
+            background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
+            color: #F8AB3F;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#"><b>OBAP Future Client Profile Portal</b></a>
+    </nav>
+
+    <!-- Form Section -->
+    <div class="container">
+        <form onsubmit="submitForm(event)"
+            action="https://script.google.com/macros/s/AKfycbykajKrXM5pf6lvlQnxY5ufz3QrZWakD4CVwvc24fpHm3ra4Z0GAjZ5hKBX6nDjg71HMg/exec"
+            method="post">
+            <div class="form-group">
+                <label for="applicantName"></label>
+                <input type="text" class="form-control" id="applicantName" placeholder="Applicant Name"
+                    name="applicantName" required>
+            </div>
+            <div class="form-group">
+                <label for="currentEmployer"></label>
+                <input type="text" class="form-control" id="currentEmployer" placeholder="Current Employer"
+                    name="currentEmployer" required>
+            </div>
+            <div class="form-group">
+                <label for="upcomingInterviews"></label>
+                <input type="text" class="form-control" id="upcomingInterviews" placeholder="Upcoming Interviews"
+                    name="upcomingInterviews" required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber"></label>
+                <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone Number" name="phoneNumber"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="americanAppComplete"></label>
+                <input type="text" class="form-control" id="americanAppComplete" placeholder="American App Complete"
+                    name="americanAppComplete" required>
+            </div>
+            <div class="form-group">
+                <label for="aaRecOnFile"></label>
+                <input type="text" class="form-control" id="aaRecOnFile" placeholder="AA Rec on File" name="aaRecOnFile"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="checkrideFailures"></label>
+                <input type="text" class="form-control" id="checkrideFailures" placeholder="Checkride Failures"
+                    name="checkrideFailures" required>
+            </div>
+            <div class="form-group">
+                <label for="backgroundCheckCompleted"></label>
+                <input type="text" class="form-control" id="backgroundCheckCompleted"
+                    placeholder="Background Check Completed" name="backgroundCheckCompleted" required>
+            </div>
+            <div class="form-group">
+                <label for="turbinePIC"></label>
+                <input type="text" class="form-control" id="turbinePIC" placeholder="Turbine PIC" name="turbinePIC"
+                    required>
+            </div>
+            <!-- <div class="form-group">
+                <label for="formFile"></label>
+                <input class="form-control" type="file" id="formFile" name="attachment">
+            </div> -->
+            <button type="submit" class="btn btn-primary mb-3" name="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <b>OBAP Future Client Profile Portal</b>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Form data
+            const formData = new FormData(event.target);
+
+            // Check if any required field is empty
+            let isValid = true;
+            formData.forEach((value, key) => {
+                if (!value.trim()) {
+                    alert(`Please fill in the ${key.replace(/([A-Z])/g, ' $1').toLowerCase()}.`);
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                return;
+            }
+
+            // Fetch to submit form data
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'Success') {
+                        alert('Form submitted successfully!');
+                        event.target.reset(); // Reset the form
+                    } else {
+                        alert('Form submission failed. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        }
+    </script>
+</body>
+
+</html>
